@@ -9,10 +9,6 @@
             {
                 output += (char)(((c - 'A' + offset + 26) % 26) + 'A');
             }
-            else
-            {
-                output += c;
-            }
             offset += variation;
         }
         return output;

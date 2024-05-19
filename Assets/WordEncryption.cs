@@ -29,6 +29,7 @@ public class WordEncryption : MonoBehaviour {
     private bool ModuleSolved;
 
     const short MAX_WORD_LENGTH = 8;
+    private bool Tolerance = true; // this will tolerate the player entering wrong inputs while the word is not displayed
 
     void Awake () {
         ModuleId = ModuleIdCounter++;
@@ -159,6 +160,10 @@ public class WordEncryption : MonoBehaviour {
 
     void GuessWord()
     {
+        if (Tolerance)
+        {
+            return;
+        }
         var text = InputWord.text;
         text = text.Replace("_", ""); // remove every _ 
         if (text == CorrectEncryptedWord)
@@ -206,6 +211,7 @@ public class WordEncryption : MonoBehaviour {
 
     void PickNewWord()
     {
+        Tolerance = true;
         string[] words = new string[]
         {
             "WORLD",
@@ -250,6 +256,7 @@ public class WordEncryption : MonoBehaviour {
         Encrypt encrypt = new Encrypt();
         CorrectEncryptedWord = encrypt.EncryptString(Word, Offset, Variation);
         StartCoroutine(DisplayNewWord());
+        
 
         // Debugging
         Debug.Log("Original word: " + Word);
@@ -271,6 +278,7 @@ public class WordEncryption : MonoBehaviour {
             StopCoroutine(blinkCoroutine);
         }
         blinkCoroutine = StartCoroutine(BlinkUnderline());
+        Tolerance = false;
     }
 
     void DealColorTexts(bool hide = false)
