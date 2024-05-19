@@ -41,20 +41,20 @@ public class Offset
     public int SelectOffset(bool[] config)
     {
         var offsets = new Dictionary<BoolTuple, int>();
-        offsets.Add(new BoolTuple(true, true, false, false), 14);
-        offsets.Add(new BoolTuple(true, false, true, false), 16);
-        offsets.Add(new BoolTuple(true, false, false, true), 8);
+        offsets.Add(new BoolTuple(true, true, false, false), 8);
+        offsets.Add(new BoolTuple(true, false, true, false), -7);
+        offsets.Add(new BoolTuple(true, false, false, true), -4);
         offsets.Add(new BoolTuple(false, true, true, false), 3);
-        offsets.Add(new BoolTuple(false, true, false, true), 15);
-        offsets.Add(new BoolTuple(false, false, true, true), 10);
-        offsets.Add(new BoolTuple(true, true, true, false), 12);
-        offsets.Add(new BoolTuple(true, true, false, true), 2);
-        offsets.Add(new BoolTuple(true, false, true, true), 5);
-        offsets.Add(new BoolTuple(false, true, true, true), 11);
-        offsets.Add(new BoolTuple(true, true, true, true), 9);
-        offsets.Add(new BoolTuple(true, false, false, false), 13);
-        offsets.Add(new BoolTuple(false, true, false, false), 6);
-        offsets.Add(new BoolTuple(false, false, true, false), 7);
+        offsets.Add(new BoolTuple(false, true, false, true), -3);
+        offsets.Add(new BoolTuple(false, false, true, true), -1);
+        offsets.Add(new BoolTuple(true, true, true, false), -8);
+        offsets.Add(new BoolTuple(true, true, false, true), 6);
+        offsets.Add(new BoolTuple(true, false, true, true), 2);
+        offsets.Add(new BoolTuple(false, true, true, true), 5);
+        offsets.Add(new BoolTuple(true, true, true, true), -6);
+        offsets.Add(new BoolTuple(true, false, false, false), -2);
+        offsets.Add(new BoolTuple(false, true, false, false), 7);
+        offsets.Add(new BoolTuple(false, false, true, false), -5);
         offsets.Add(new BoolTuple(false, false, false, true), 4);
         offsets.Add(new BoolTuple(false, false, false, false), 1);
 

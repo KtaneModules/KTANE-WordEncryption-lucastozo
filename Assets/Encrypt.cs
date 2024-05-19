@@ -1,16 +1,7 @@
 ﻿public class Encrypt
 {
-    public string EncryptString(string input, int offset = 0, int variation = 0)
+    public string EncryptString(char input, int offset = 0)
     {
-        string output = "";
-        foreach (char c in input)
-        {
-            if (c >= 'A' && c <= 'Z')
-            {
-                output += (char)(((c - 'A' + offset + 26) % 26) + 'A');
-            }
-            offset += variation;
-        }
-        return output;
+        return (char)(((input - 'A' + offset + 26) % 26) + 'A');
     }
 }

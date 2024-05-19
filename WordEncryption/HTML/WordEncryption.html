@@ -16,6 +16,10 @@
             border: none;
         }
 
+        .bold {
+            font-weight: bold;
+        }
+
         /* Remove this if you only have a single page */
         .page-footer::before { content: 'Page '; }
         .page-footer::after { content: ' of 2'; }
@@ -31,23 +35,25 @@
             <div class="page-content">
                 <img src="img/Component/WordEncryption.svg" class="diagram">
                 <h2>On the Subject of Word Encryption</h2>
-                <p class="flavour-text">Your flavor text should go here.</p>
+                <p class="flavour-text">After all, is this device electronic or mechanical? What are the gears doing?</p>
 
                 <ul>
                     <li>Identify the encrypted form of the given word.</li>
                     <li>The encryption is done by replacing each letter with the letter that is a certain offset away in the alphabet.</li>
-                    <li>The offset is changed after each letter by the variation value.</li>
+                    <li>The offset is changed after each letter in the given word.</li>
+                    <li>The offset is not accumulative. Therefore, deleting a letter <span class="bold">does not</span> change the offset of the next letter.</li>
+                    <li>Refer to <span class="bold">Initial Offset</span> for the initial offset value.</li>
+                    <li>Refer to <span class="bold">Variation</span> for the variation value.</li>
                     <li>Use the keyboard to input the correct encrypted letter based on the current offset.</li>
                     <li>Press the "↲" submit button when the encrypted word is identified.</li>
-                    <!-- <li>Refer to "Offset" for the initial offset.</li>
-                    <li>Refer to "Variation" for the variation value.</li> -->
                 </ul>
                 
                 <h3>Variation</h3>
-                <p>After each letter, the offset is changed by the variation value. The variation value is determined by the indicators present on the bomb.</p>
+                <p>After each letter, the offset is changed by the variation value. The variation value is determined by the indicators <span class="bold">present</span> on the bomb.</p>
 
                 <ul>
-                    <li>In case of multiple indicators, the variation value is the sum of the variation values of all indicators present on the bomb.</li>
+                    <li>In case of multiple indicators, the variation value is the sum of the variation values of all indicators present on the bomb. <span class="bold">Do not</span> sum indicators from the same group.</li>
+                    <li>For example, if the bomb has SND, CLR, and NSA indicators, the variation value is +3.</li>
                 </ul>
                 
                 <table style="text-align: center;">
@@ -117,9 +123,7 @@
                         <td><img src="img/Linhas/solid.svg"></td>
                         <td>Bomb has one of the following ports:
                             <ul>
-                                <li>Serial</li>
                                 <li>Stereo RCA</li>
-                                <li>DVI-D</li>
                                 <li>PS/2</li>
                             </ul>
                         </td>

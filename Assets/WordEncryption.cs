@@ -11,13 +11,12 @@ using Math = ExMath;
 public class WordEncryption : MonoBehaviour {
 
     private string CorrectEncryptedWord;
+    private short IndexWordEncryption = 0;
     private string Word;
-    private int Offset;
+    private int Offset, OgOffset; // use to reset the offset
     private int Variation;
 
-    public TextMesh GivenWord;
-    public TextMesh InputWord;
-    public TextMesh InputTip;
+    public TextMesh GivenWord, InputWord, InputTip;
     public KMSelectable[] keyboard;
     public GameObject[] gears;
 
@@ -91,6 +90,12 @@ public class WordEncryption : MonoBehaviour {
             {
                 text = text.Substring(0, text.Length - 1);
             }
+            else
+            {
+                Offset = OgOffset;
+                IndexWordEncryption = 0;
+                StartCoroutine(RotateGears(true));
+            }
         }
         else if (code == 27)
         {
@@ -99,6 +104,8 @@ public class WordEncryption : MonoBehaviour {
         else if (text.Length < MAX_WORD_LENGTH)
         {
             text += (char)('A' + code);
+            ConstructEncryptedWord(Word[IndexWordEncryption]);
+            Offset = Offset + Variation;
             StartCoroutine(RotateGears());
         }
         InputWord.text = text;
@@ -166,15 +173,13 @@ public class WordEncryption : MonoBehaviour {
         }
         var text = InputWord.text;
         text = text.Replace("_", ""); // remove every _ 
-        if (text == CorrectEncryptedWord)
-        {
-            ModuleSolved = true;
-            Solve();
-        }
-        else
+        if (text != CorrectEncryptedWord || IndexWordEncryption != Word.Length - 1)
         {
             Strike();
+            return;
         }
+        ModuleSolved = true;
+        Solve();
     }
 
     void Activate () {
@@ -186,17 +191,8 @@ public class WordEncryption : MonoBehaviour {
         InputWord.text = "";
         StartCoroutine(BlinkUnderline());
 
-        Offset selectOffset = new Offset();
-        bool[] config = new bool[4];
-        config[0] = Bomb.GetPortCount(Port.Serial) > 0 || Bomb.GetPortCount(Port.StereoRCA) > 0 || Bomb.GetPortCount(Port.DVI) > 0 || Bomb.GetPortCount(Port.PS2) > 0;
-        config[1] = Bomb.GetBatteryCount(1) > 0;
-        config[2] = Bomb.GetBatteryCount(2) > 0 || Bomb.GetBatteryCount(3) > 0 || Bomb.GetBatteryCount(4) > 0;
-        config[3] = Regex.IsMatch(Bomb.GetSerialNumber(), "[AEIOU]");
-        Offset = selectOffset.SelectOffset(config);
-
-        Variation selectVariation = new Variation();
-        string[] indicators = Bomb.GetIndicators().ToArray();
-        Variation = selectVariation.SelectVariation(indicators);
+        GetOffset();
+        GetVariation();
     }
 
     void Solve () {
@@ -211,6 +207,7 @@ public class WordEncryption : MonoBehaviour {
 
     void PickNewWord()
     {
+        Offset = OgOffset;
         Tolerance = true;
         string[] words = new string[]
         {
@@ -253,16 +250,12 @@ public class WordEncryption : MonoBehaviour {
             "DANGER"
         };
         Word = words[Rnd.Range(0, words.Length)];
-        Encrypt encrypt = new Encrypt();
-        CorrectEncryptedWord = encrypt.EncryptString(Word, Offset, Variation);
         StartCoroutine(DisplayNewWord());
         
-
         // Debugging
         Debug.Log("Original word: " + Word);
         Debug.Log("Offset: " + Offset);
         Debug.Log("Variation: " + Variation);
-        Debug.Log("Encrypted word: " + CorrectEncryptedWord);
     }
 
     IEnumerator DisplayNewWord()
@@ -290,6 +283,32 @@ public class WordEncryption : MonoBehaviour {
         InputTip.color = hide ? black : white;
     }
 
+    void GetOffset()
+    {
+        Offset selectOffset = new Offset();
+        bool[] config = new bool[4];
+        config[0] = Bomb.GetPortCount(Port.StereoRCA) > 0 || Bomb.GetPortCount(Port.PS2) > 0;
+        config[1] = Bomb.GetBatteryCount(1) > 0;
+        config[2] = Bomb.GetBatteryCount(2) > 0 || Bomb.GetBatteryCount(3) > 0 || Bomb.GetBatteryCount(4) > 0;
+        config[3] = Regex.IsMatch(Bomb.GetSerialNumber(), "[AEIOU]");
+        Offset = selectOffset.SelectOffset(config);
+        OgOffset = Offset;
+    }
+
+    void GetVariation()
+    {
+        Variation selectVariation = new Variation();
+        string[] indicators = Bomb.GetIndicators().ToArray();
+        Variation = selectVariation.SelectVariation(indicators);
+    }
+
+    void ConstructEncryptedWord(char c)
+    {
+        Encrypt encrypt = new Encrypt();
+        CorrectEncryptedWord += encrypt.EncryptString(c, Offset);
+        IndexWordEncryption++;
+        Debug.Log("Encrypted word: " + CorrectEncryptedWord);
+    }
     #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
     #pragma warning restore 414
