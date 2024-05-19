@@ -89,6 +89,8 @@ public class WordEncryption : MonoBehaviour {
             if (text.Length != 0)
             {
                 text = text.Substring(0, text.Length - 1);
+                CorrectEncryptedWord = CorrectEncryptedWord.Substring(0, CorrectEncryptedWord.Length - 1);
+                IndexWordEncryption--;
             }
             else
             {
