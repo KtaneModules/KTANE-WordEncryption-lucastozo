@@ -40,12 +40,13 @@
                 <ul>
                     <li>Identify the encrypted form of the given word.</li>
                     <li>The encryption is done by replacing each letter with the letter that is a certain offset away in the alphabet.</li>
-                    <li>The offset is changed after each letter in the given word.</li>
-                    <li>The offset is not accumulative. Therefore, deleting a letter <span class="bold">does not</span> change the offset of the next letter.</li>
+                    <li>The offset is changed after each letter is pressed.</li>
+                    <li>The offset is accumulative. Therefore, deleting a letter will not retrocede the offset.</li>
+                    <li>To reset the offset to its initial value, use the "←" backspace button until all gears on the right rotate together.</li>
                     <li>Refer to <span class="bold">Initial Offset</span> for the initial offset value.</li>
                     <li>Refer to <span class="bold">Variation</span> for the variation value.</li>
                     <li>Use the keyboard to input the correct encrypted letter based on the current offset.</li>
-                    <li>Press the "↲" submit button when the encrypted word is identified.</li>
+                    <li>Press the "↲" submit button when the encrypted word is typed.</li>
                 </ul>
                 
                 <h3>Variation</h3>
@@ -59,9 +60,11 @@
                 <table style="text-align: center;">
                     <th>Indicator</th>
                     <th>Variation</th>
+                    <th>Group</th>
                     <tr>
                         <td>SND</td>
                         <td rowspan="3">+1</td>
+                        <td rowspan="3">A</td>
                     </tr>
                     <tr>
                         <td>CLR</td>
@@ -72,6 +75,7 @@
                     <tr>
                         <td>IND</td>
                         <td rowspan="3">-1</td>
+                        <td rowspan="3">B</td>
                     </tr>
                     <tr>
                         <td>FRQ</td>
@@ -82,6 +86,7 @@
                     <tr>
                         <td>NSA</td>
                         <td rowspan="3">+2</td>
+                        <td rowspan="3">C</td>
                     </tr>
                     <tr>
                         <td>MSA</td>
@@ -92,6 +97,7 @@
                     <tr>
                         <td>BOB</td>
                         <td rowspan="2">-2</td>
+                        <td rowspan="2">D</td>
                     </tr>
                     <tr>
                         <td>FRK</td>
@@ -99,6 +105,7 @@
                     <tr>
                         <td>None</td>
                         <td>+1</td>
+                        <td>-</td>
                     </tr>
                 </table>
                 
