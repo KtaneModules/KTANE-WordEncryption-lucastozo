@@ -90,8 +90,10 @@ public class WordEncryption : MonoBehaviour {
             {
                 text = text.Substring(0, text.Length - 1);
                 CorrectEncryptedWord = CorrectEncryptedWord.Substring(0, CorrectEncryptedWord.Length - 1);
-                IndexWordEncryption--;
-                RevelNextLeter();
+                if (InputWord.text.Length <= Word.Length)
+                {
+                    IndexWordEncryption--;
+                }
             }
             else
             {
@@ -107,10 +109,13 @@ public class WordEncryption : MonoBehaviour {
         else if (text.Length < MAX_WORD_LENGTH)
         {
             text += (char)('A' + code);
-            ConstructEncryptedWord(Word[IndexWordEncryption]);
+            Debug.Log("Index: " + IndexWordEncryption);
+            if (IndexWordEncryption < Word.Length)
+            {
+                ConstructEncryptedWord(Word[IndexWordEncryption]);
+            }
             Offset = Offset + Variation;
             StartCoroutine(RotateGears());
-            RevelNextLeter();
         }
         InputWord.text = text;
         blinkCoroutine = StartCoroutine(BlinkUnderline());
@@ -223,7 +228,6 @@ public class WordEncryption : MonoBehaviour {
         Debug.Log("Original word: " + Word);
         Debug.Log("Offset: " + Offset);
         Debug.Log("Variation: " + Variation);
-        RevelNextLeter();
     }
 
     IEnumerator DisplayNewWord()
@@ -272,25 +276,17 @@ public class WordEncryption : MonoBehaviour {
 
     void ConstructEncryptedWord(char c)
     {
+        if (IndexWordEncryption > Word.Length || InputWord.text.Length > Word.Length)
+        {
+            return;
+        }
         Encrypt encrypt = new Encrypt();
         CorrectEncryptedWord += encrypt.EncryptString(c, Offset);
-        if (IndexWordEncryption <= Word.Length)
+        if (IndexWordEncryption < Word.Length)
         {
             IndexWordEncryption++;
         }
         Debug.Log("Encrypted word: " + CorrectEncryptedWord);
-    }
-
-    void RevelNextLeter()
-    {
-        if (IndexWordEncryption >= Word.Length)
-        {
-            return;
-        }
-        char c = Word[IndexWordEncryption];
-        Encrypt encrypt = new Encrypt();
-        var reveal = encrypt.EncryptString(c, Offset);
-        Debug.Log("Reveal: " + reveal);
     }
     #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
