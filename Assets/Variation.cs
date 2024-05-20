@@ -14,9 +14,9 @@ public class Variation
         Dictionary<string, int> variation = new Dictionary<string, int>
         {
             {"SND", 1}, {"CLR", 1}, {"CAR", 1},
-            {"IND", -2}, {"FRQ", -2}, {"SIG", -2},
+            {"IND", -1}, {"FRQ", -1}, {"SIG", -1},
             {"NSA", 2}, {"MSA", 2}, {"TRN", 2},
-            {"BOB", -1}, {"FRK", -1}
+            {"BOB", -2}, {"FRK", -2}
         };
 
         Dictionary<string, string> categorias = new Dictionary<string, string>
@@ -33,10 +33,13 @@ public class Variation
         foreach (string indicador in indicators)
         {
             string categoria = categorias.ContainsKey(indicador) ? categorias[indicador] : null;
-            if (categoria != null && !categoriasVisitadas.Contains(categoria))
+            if (categoria != null)
             {
-                total_variation += variation.ContainsKey(indicador) ? variation[indicador] : 0;
-                categoriasVisitadas.Add(categoria);
+                if (!categoriasVisitadas.Contains(categoria))
+                {
+                    total_variation += variation.ContainsKey(indicador) ? variation[indicador] : 0;
+                    categoriasVisitadas.Add(categoria);
+                }
             }
         }
 

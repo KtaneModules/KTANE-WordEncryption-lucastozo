@@ -91,6 +91,7 @@ public class WordEncryption : MonoBehaviour {
                 text = text.Substring(0, text.Length - 1);
                 CorrectEncryptedWord = CorrectEncryptedWord.Substring(0, CorrectEncryptedWord.Length - 1);
                 IndexWordEncryption--;
+                RevelNextLeter();
             }
             else
             {
@@ -109,6 +110,7 @@ public class WordEncryption : MonoBehaviour {
             ConstructEncryptedWord(Word[IndexWordEncryption]);
             Offset = Offset + Variation;
             StartCoroutine(RotateGears());
+            RevelNextLeter();
         }
         InputWord.text = text;
         blinkCoroutine = StartCoroutine(BlinkUnderline());
@@ -175,9 +177,11 @@ public class WordEncryption : MonoBehaviour {
         }
         var text = InputWord.text;
         text = text.Replace("_", ""); // remove every _ 
-        if (text != CorrectEncryptedWord || IndexWordEncryption != Word.Length - 1)
+        if (text != CorrectEncryptedWord || text.Length != Word.Length)
         {
             Strike();
+            Debug.Log("Text: " + text);
+            Debug.Log("Correct: " + CorrectEncryptedWord);
             return;
         }
         ModuleSolved = true;
@@ -211,53 +215,15 @@ public class WordEncryption : MonoBehaviour {
     {
         Offset = OgOffset;
         Tolerance = true;
-        string[] words = new string[]
-        {
-            "WORLD",
-            "BOMBA",
-            "BOMB",
-            "MODULE",
-            "KEYPAD",
-            "BUTTON",
-            "STRIKE",
-            "SOLVE",
-            "TYPING",
-            "KEYBOARD",
-            "DISPLAY",
-            "BATTERY",
-            "WIRE",
-            "HONEST",
-            "LOVELY",
-            "KITTEN",
-            "GENTLE",
-            "KINDNESS",
-            "FLOWER",
-            "BREEZE",
-            "SUNSET",
-            "SUNRISE",
-            "RAINBOW",
-            "ATTACK",
-            "DEFENSE",
-            "CARDINAL",
-            "ATOMIC",
-            "DOZENS",
-            "CLEVER",
-            "FUTURE",
-            "HEART",
-            "DESERT",
-            "ELEPHANT",
-            "UNITED",
-            "GARDEN",
-            "FANTASY",
-            "DANGER"
-        };
-        Word = words[Rnd.Range(0, words.Length)];
+        Words words = new Words();
+        Word = words.PickWord();
         StartCoroutine(DisplayNewWord());
         
         // Debugging
         Debug.Log("Original word: " + Word);
         Debug.Log("Offset: " + Offset);
         Debug.Log("Variation: " + Variation);
+        RevelNextLeter();
     }
 
     IEnumerator DisplayNewWord()
@@ -308,8 +274,23 @@ public class WordEncryption : MonoBehaviour {
     {
         Encrypt encrypt = new Encrypt();
         CorrectEncryptedWord += encrypt.EncryptString(c, Offset);
-        IndexWordEncryption++;
+        if (IndexWordEncryption <= Word.Length)
+        {
+            IndexWordEncryption++;
+        }
         Debug.Log("Encrypted word: " + CorrectEncryptedWord);
+    }
+
+    void RevelNextLeter()
+    {
+        if (IndexWordEncryption >= Word.Length)
+        {
+            return;
+        }
+        char c = Word[IndexWordEncryption];
+        Encrypt encrypt = new Encrypt();
+        var reveal = encrypt.EncryptString(c, Offset);
+        Debug.Log("Reveal: " + reveal);
     }
     #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
