@@ -22,7 +22,7 @@
 
         /* Remove this if you only have a single page */
         .page-footer::before { content: 'Page '; }
-        .page-footer::after { content: ' of 2'; }
+        .page-footer::after { content: ' of 3'; }
     </style>
 </head>
 <body>
@@ -36,25 +36,81 @@
                 <img src="img/Component/WordEncryption.svg" class="diagram">
                 <h2>On the Subject of Word Encryption</h2>
                 <p class="flavour-text">After all, is this device electronic or mechanical? What are the gears doing?</p>
-
                 <ul>
                     <li>Identify the encrypted form of the given word.</li>
                     <li>The encryption is done by replacing each letter with the letter that is a certain offset away in the alphabet.</li>
-                    <li>The offset is changed after each letter is pressed.</li>
-                    <li>The offset is accumulative. Therefore, deleting a letter will not retrocede the offset.</li>
-                    <li>To reset the offset to its initial value, use the "←" backspace button until all gears on the right rotate together.</li>
-                    <li>Refer to <span class="bold">Initial Offset</span> for the initial offset value.</li>
-                    <li>Refer to <span class="bold">Variation</span> for the variation value.</li>
                     <li>Use the keyboard to input the correct encrypted letter based on the current offset.</li>
                     <li>Press the "↲" submit button when the encrypted word is typed.</li>
+                    <li>Submiting an incorrect word will generate a new word to decrypt and reset the offset to its initial value.</li>
                 </ul>
-                
+
+                <h3>Offset</h3>
+                <p>Each time a letter is pressed, the offset value is changed by the <span class="bold">variation</span> value. Meaning that the first encrypted letter offset is the initial offset value, the second encrypted letter offset is the initial offset value plus the variation value, and so on.</p>
+                <p>The offset value is <span class="bold">accumulative</span>, therefore, deleting a letter will not retrocede the offset.</p>
+                <p>To <span class="bold">reset the offset</span> to its initial value, use the "←" backspace button until all gears on the right rotate together.</p>
+                <ul>
+                    <li>Refer to <span class="bold">Initial Offset</span> for the initial offset value.</li>
+                    <li>Refer to <span class="bold">Variation</span> for the variation value.</li>
+                </ul>
+
+
+            </div>
+            <div class="page-footer relative-footer">1</div>
+        </div>
+
+        <div class="page page-bg-02">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Word Encryption</span>
+            </div>
+            <div class="page-content">
+                <h3>Initial Offset</h3>
+                <p>The initial offset value is determined by the following venn diagram:</p>
+                <img src="img/Offset.svg" class="diagram" style="width: 100%">
+                <table style="text-align: center">
+                    <tr>
+                        <th>Line</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Linhas/solid.svg"></td>
+                        <td>Bomb has one of the following ports:
+                            <ul>
+                                <li>Stereo RCA</li>
+                                <li>PS/2</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Linhas/dash-s.svg"></td>
+                        <td>Bomb has a type D battery.</td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Linhas/dash-b.svg"></td>
+                        <td>Bomb has a type AA battery.</td>
+                    </tr>
+                    <tr>
+                        <td><img src="img/Linhas/morse.svg"></td>
+                        <td>Serial number contains a vowel.</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="page-footer relative-footer">2</div>
+        </div>
+
+        <div class="page page-bg-03">
+            <div class="page-header">
+                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+                <span class="page-header-section-title">Word Encryption</span>
+            </div>
+            <div class="page-content">
                 <h3>Variation</h3>
-                <p>After each letter, the offset is changed by the variation value. The variation value is determined by the indicators <span class="bold">present</span> on the bomb.</p>
+                <p>The variation value is determined by the indicators <span class="bold">present</span> on the bomb.</p>
 
                 <ul>
                     <li>In case of multiple indicators, the variation value is the sum of the variation values of all indicators present on the bomb. <span class="bold">Do not</span> sum indicators from the same group.</li>
                     <li>For example, if the bomb has SND, CLR, and NSA indicators, the variation value is +3.</li>
+                    <li>Use the following table to determine the variation value:</li>
                 </ul>
                 
                 <table style="text-align: center;">
@@ -108,48 +164,8 @@
                         <td>-</td>
                     </tr>
                 </table>
-                
             </div>
-            <div class="page-footer relative-footer">1</div>
-        </div>
-
-        <div class="page page-bg-02">
-            <div class="page-header">
-                <span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
-                <span class="page-header-section-title">Word Encryption</span>
-            </div>
-            <div class="page-content">
-                <h3>Initial Offset</h3>
-                <img src="img/Offset.svg" class="diagram" style="width: 100%">
-                <table style="text-align: center">
-                    <tr>
-                        <th>Line</th>
-                        <th>Description</th>
-                    </tr>
-                    <tr>
-                        <td><img src="img/Linhas/solid.svg"></td>
-                        <td>Bomb has one of the following ports:
-                            <ul>
-                                <li>Stereo RCA</li>
-                                <li>PS/2</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="img/Linhas/dash-s.svg"></td>
-                        <td>Bomb has a type D battery.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="img/Linhas/dash-b.svg"></td>
-                        <td>Bomb has a type AA battery.</td>
-                    </tr>
-                    <tr>
-                        <td><img src="img/Linhas/morse.svg"></td>
-                        <td>Serial number contains a vowel.</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="page-footer relative-footer">2</div>
+            <div class="page-footer relative-footer">3</div>
         </div>
     </div>
 </body>
