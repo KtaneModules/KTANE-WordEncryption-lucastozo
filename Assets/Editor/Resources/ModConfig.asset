@@ -11,13 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
   m_Name: ModConfig
   m_EditorClassIdentifier: 
-  id: template
-  title: Template
-  author: 
-  description: "[INSERT FLAVOR TEXT HERE]\n\n[INSERT SOLVING DESCRIPTION HERE]\n\n[INSERT
-    POTENTIAL CREDITS HERE]\n\nThe manual can be found in the manuals folder of the
-    game or at ktane.timwi.de.\n\r\nContact Fartlicker777#9169 on Discord if there
-    are any bugs."
-  version: 
+  id: WordEncryption
+  title: Word Encryption
+  author: lucastozo7
+  description: 'Use the keyboard to write the encrypted form of a word.
+
+
+    The manual can be found in the manuals folder of the game or at ktane.timwi.de.
+
+
+    Report bugs on the comment section'
+  version: 1.0
   outputFolder: build
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: cf71e33afd4fc18498ca75be15a5d401, type: 3}
