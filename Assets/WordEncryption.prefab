@@ -1609,7 +1609,7 @@ GameObject:
   - component: {fileID: 114990544492691844}
   - component: {fileID: 114841431069547450}
   m_Layer: 0
-  m_Name: Template
+  m_Name: WordEncryption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
