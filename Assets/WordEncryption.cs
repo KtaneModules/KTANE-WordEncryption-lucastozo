@@ -221,9 +221,7 @@ public class WordEncryption : MonoBehaviour {
 
         GetOffset();
         GetVariation();
-        Words words = new Words();
-        Word = words.PickWord();
-        GivenWord.text = Word;
+        PickNewWord();
         Debug.Log("Offset: " + Offset);
         Debug.Log("Variation: " + Variation);
     }
@@ -240,10 +238,6 @@ public class WordEncryption : MonoBehaviour {
 
     void PickNewWord()
     {
-        if(FirstTime)
-        {
-            return;
-        }
         Offset = OgOffset;
         Tolerance = true;
         Words words = new Words();

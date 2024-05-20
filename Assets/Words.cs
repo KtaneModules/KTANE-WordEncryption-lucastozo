@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 
 public class Words
 {
@@ -44,6 +44,6 @@ public class Words
             "NAVY",
             "WIRE"
         };
-        return words[new Random().Next(words.Length)];
+        return words[UnityEngine.Random.Range(0, words.Length)];
     }
 }
