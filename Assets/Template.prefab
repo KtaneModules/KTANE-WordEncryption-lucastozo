@@ -3346,7 +3346,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1655734839742282}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.239, y: 0.60000014, z: -0.28700003}
+  m_LocalPosition: {x: -0.214, y: 0.60000014, z: -0.28700003}
   m_LocalScale: {x: 0.008873829, y: 0.0219256, z: 430.2765}
   m_Children: []
   m_Father: {fileID: 4860264259084642}
@@ -7870,9 +7870,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1655734839742282}
-  m_Text: KEYBOARD
+  m_Text: WINTER
   m_OffsetZ: 0
-  m_CharacterSize: 0.34
+  m_CharacterSize: 0.38
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -7935,7 +7935,7 @@ TextMesh:
   m_GameObject: {fileID: 1056556408519232}
   m_Text: 'IN:'
   m_OffsetZ: 0
-  m_CharacterSize: 0.34
+  m_CharacterSize: 0.38
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -8248,9 +8248,9 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340248414702514}
-  m_Text: KEYBOARD
+  m_Text: WINTER
   m_OffsetZ: 0
-  m_CharacterSize: 0.45
+  m_CharacterSize: 0.5
   m_LineSpacing: 1
   m_Anchor: 3
   m_Alignment: 0
@@ -9851,7 +9851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/Text Shader
+  - GUI/KT 3D Text
 --- !u!114 &114669225834907302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9864,7 +9864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/Text Shader
+  - GUI/KT 3D Text
 --- !u!114 &114670599519085886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9968,7 +9968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShaderNames:
-  - GUI/Text Shader
+  - GUI/KT 3D Text
 --- !u!114 &114761446944415124
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,7 +10,7 @@ using Math = ExMath;
 
 public class WordEncryption : MonoBehaviour {
 
-    private string CorrectEncryptedWord;
+    private string CorrectEncryptedWord = "";
     private short IndexWordEncryption = 0;
     private string Word;
     private int Offset, OgOffset; // use to reset the offset
@@ -27,8 +27,10 @@ public class WordEncryption : MonoBehaviour {
     int ModuleId;
     private bool ModuleSolved;
 
-    const short MAX_WORD_LENGTH = 8;
+    const short MAX_WORD_LENGTH = 6;
+    private bool FirstTime = true; // this will be used to not play the "reset" sound at the start
     private bool Tolerance = true; // this will tolerate the player entering wrong inputs while the word is not displayed
+    string[] SFX = { "lock1", "lock2", "lock3", "lock4", "lock5", "reset" };
 
     void Awake () {
         ModuleId = ModuleIdCounter++;
@@ -76,6 +78,7 @@ public class WordEncryption : MonoBehaviour {
 
     void ChangeInputWord(int code)
     {
+        text = InputWord.text.Replace("_", "");
         if (ModuleSolved)
         {
             return;
@@ -88,17 +91,19 @@ public class WordEncryption : MonoBehaviour {
         {
             if (text.Length != 0)
             {
-                text = text.Substring(0, text.Length - 1);
-                CorrectEncryptedWord = CorrectEncryptedWord.Substring(0, CorrectEncryptedWord.Length - 1);
+                text = text.Remove(text.Length - 1);
+                
                 if (InputWord.text.Length <= Word.Length)
                 {
+                    CorrectEncryptedWord = CorrectEncryptedWord.Remove(CorrectEncryptedWord.Length - 1);
                     IndexWordEncryption--;
                 }
             }
             else
             {
                 Offset = OgOffset;
-                IndexWordEncryption = 0;
+                CleanEncryptedAndIndex();
+                PlaySFX("reset");
                 StartCoroutine(RotateGears(true));
             }
         }
@@ -109,13 +114,17 @@ public class WordEncryption : MonoBehaviour {
         else if (text.Length < MAX_WORD_LENGTH)
         {
             text += (char)('A' + code);
-            Debug.Log("Index: " + IndexWordEncryption);
             if (IndexWordEncryption < Word.Length)
             {
+                if (IndexWordEncryption < 0)
+                {
+                    IndexWordEncryption = 0;
+                }
                 ConstructEncryptedWord(Word[IndexWordEncryption]);
             }
             Offset = Offset + Variation;
             StartCoroutine(RotateGears());
+            PlaySFX("lock");
         }
         InputWord.text = text;
         blinkCoroutine = StartCoroutine(BlinkUnderline());
@@ -180,8 +189,14 @@ public class WordEncryption : MonoBehaviour {
         {
             return;
         }
+
         var text = InputWord.text;
         text = text.Replace("_", ""); // remove every _ 
+        if (text.Length < Word.Length)
+        {
+            Strike();
+            return;
+        }
         if (text != CorrectEncryptedWord || text.Length != Word.Length)
         {
             Strike();
@@ -196,6 +211,8 @@ public class WordEncryption : MonoBehaviour {
     void Activate () {
         PickNewWord();
         DealColorTexts();
+        FirstTime = false;
+        Tolerance = false;
     }
 
     void Start () {
@@ -204,6 +221,11 @@ public class WordEncryption : MonoBehaviour {
 
         GetOffset();
         GetVariation();
+        Words words = new Words();
+        Word = words.PickWord();
+        GivenWord.text = Word;
+        Debug.Log("Offset: " + Offset);
+        Debug.Log("Variation: " + Variation);
     }
 
     void Solve () {
@@ -218,21 +240,26 @@ public class WordEncryption : MonoBehaviour {
 
     void PickNewWord()
     {
+        if(FirstTime)
+        {
+            return;
+        }
         Offset = OgOffset;
         Tolerance = true;
         Words words = new Words();
         Word = words.PickWord();
         StartCoroutine(DisplayNewWord());
-        
-        // Debugging
-        Debug.Log("Original word: " + Word);
-        Debug.Log("Offset: " + Offset);
-        Debug.Log("Variation: " + Variation);
+
+        CleanEncryptedAndIndex();
     }
 
     IEnumerator DisplayNewWord()
     {
-        StartCoroutine(RotateGears(true));
+        if(!FirstTime)
+        {
+            PlaySFX("reset");
+            StartCoroutine(RotateGears(true));
+        }
         text = "";
         InputWord.text = text;
         GivenWord.text = "";
@@ -276,17 +303,41 @@ public class WordEncryption : MonoBehaviour {
 
     void ConstructEncryptedWord(char c)
     {
-        if (IndexWordEncryption > Word.Length || InputWord.text.Length > Word.Length)
+        if (text.Length > Word.Length)
         {
             return;
         }
+        if (CorrectEncryptedWord.Length > Word.Length-1) // silly fix to avoid a bug. TODO: fix this properly
+        {
+            CorrectEncryptedWord = CorrectEncryptedWord.Remove(CorrectEncryptedWord.Length - 1);
+        }
+        Debug.Log("Index: " + IndexWordEncryption);
         Encrypt encrypt = new Encrypt();
         CorrectEncryptedWord += encrypt.EncryptString(c, Offset);
-        if (IndexWordEncryption < Word.Length)
+        Debug.Log("Encrypted word: " + CorrectEncryptedWord);
+        if (IndexWordEncryption < Word.Length-1)
         {
             IndexWordEncryption++;
         }
-        Debug.Log("Encrypted word: " + CorrectEncryptedWord);
+    }
+
+    void PlaySFX(string sfx)
+    {
+        switch (sfx)
+        {
+            case "lock":
+                Audio.PlaySoundAtTransform(SFX[Rnd.Range(0, SFX.Length-1)], transform);
+                break;
+            case "reset":
+                Audio.PlaySoundAtTransform(SFX[5], transform);
+                break;
+        }
+    }
+
+    void CleanEncryptedAndIndex()
+    {
+        CorrectEncryptedWord = "";
+        IndexWordEncryption = 0;
     }
     #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
